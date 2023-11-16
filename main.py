@@ -1,16 +1,17 @@
 import sys
 from random import randint, choice
 
-from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QColor, QPen
 from PyQt5.QtWidgets import QWidget, QApplication
 
+from Ui import Ui_Form
 
-class Circles(QWidget):
+
+class Circles(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
         self.setWindowTitle('Круги')
         self.pushButton.clicked.connect(self.create_circle)
         self.circles = []
