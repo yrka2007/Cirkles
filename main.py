@@ -1,5 +1,5 @@
 import sys
-from random import randint
+from random import randint, choice
 
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QWidget, QApplication
 class Circles(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        uic.loadUi('Ui.ui', self)
         self.setWindowTitle('Круги')
         self.pushButton.clicked.connect(self.create_circle)
         self.circles = []
@@ -19,7 +19,8 @@ class Circles(QWidget):
         r = randint(40, 300)
         x = randint(0, self.width()) - r // 2
         y = randint(0, self.height()) - r // 2
-        self.circles.append((x, y, r))
+        color = choice(['black', 'red', 'blue', 'yellow', 'green', 'purple'])
+        self.circles.append((x, y, r, color))
         self.update()
 
     def paintEvent(self, event):
@@ -29,8 +30,8 @@ class Circles(QWidget):
         qp.end()
 
     def draw(self, qp):
-        qp.setPen(QPen(QColor('yellow'), 4, Qt.SolidLine))
         for el in self.circles:
+            qp.setPen(QPen(QColor(el[3]), 4, Qt.SolidLine))
             qp.drawArc(el[0], el[1], el[2], el[2], 0, 360 * 16)
 
 
